@@ -1,0 +1,33 @@
+---
+title: "README"
+author: "Lutz Gruber"
+date: "`r lubridate::today()`"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+This is package serves to demonstrate that `devtools::test()` fails for function `master_fct2` (when the package is not installed but merely loaded with devtools), but the function runs without any problems when called by the user.
+
+It is noteworthy that the problem appears to come from a call to `dplyr::summarize` in the worker function. `master_fct1` calls a different worker function that does not use `dplyr::summarize`, and `devtools::test()` has no problems with that function.
+
+## devtools::test()
+
+```{r}
+tryCatch(
+  expr = { devtools::test() },
+  error = function(e) {
+    print(conditionMessage(e))
+  }
+)
+```
+
+## Call function manually
+
+```{r}
+devtools::load_all()
+
+master_fct2(5L)
+```
