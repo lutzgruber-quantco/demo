@@ -9,11 +9,24 @@ output: github_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-This is package serves to demonstrate that `devtools::test()` fails for function `master_fct2` (when the package is not installed but merely loaded with devtools), but the function runs without any problems when called by the user.
+This is package serves to demonstrate that `testthat::test_local()` (and `devtools::test()`) fail for function `master_fct2()` (when the package is not installed but merely loaded with devtools), but the function runs without any problems when called by the user or when tested with `testthat::test_dir()`.
 
-It is noteworthy that the problem appears to come from a call to `dplyr::summarize` in the worker function. `master_fct1` calls a different worker function that does not use `dplyr::summarize`, and `devtools::test()` has no problems with that function.
+It is noteworthy that the problem appears to come from a call to `dplyr::summarize()` in the worker function. `master_fct1()` calls a different worker function that does not use `dplyr::summarize()`, and the `testthat::test_local()` has no problems with that function.
 
-## devtools::test()
+## Errors
+
+### Using testthat::test_local()
+
+```{r}
+tryCatch(
+  expr = { testthat::test_local() },
+  error = function(e) {
+    print(conditionMessage(e))
+  }
+)
+```
+
+### Using devtools::test()
 
 ```{r}
 tryCatch(
@@ -24,7 +37,17 @@ tryCatch(
 )
 ```
 
-## Call function manually
+## No errors
+
+### Using testthat::test_dir()
+
+```{r}
+devtools::load_all()
+
+testthat::test_dir("tests/testthat/")
+```
+
+### Direct function call
 
 ```{r}
 devtools::load_all()
