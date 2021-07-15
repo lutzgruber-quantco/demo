@@ -1,7 +1,7 @@
 README
 ================
 Lutz Gruber
-2021-07-14
+2021-07-15
 
 This is package serves to demonstrate that `testthat::test_local()` (and
 `devtools::test()`) fail for function `master_fct2()` (when the package
@@ -12,7 +12,7 @@ without any problems when called by the user or when tested with
 It is noteworthy that the problem appears to come from a call to
 `dplyr::summarize()` in the worker function. `master_fct1()` calls a
 different worker function that does not use `dplyr::summarize()`, and
-the `testthat::test_local()` has no problems with that function.
+that `testthat::test_local()` has no problems with that function.
 
 ## Errors
 
@@ -40,7 +40,7 @@ tryCatch(
     ## ────────────────────────────────────────────────────────────────────────────────
     ## 
     ## ══ Results ═════════════════════════════════════════════════════════════════════
-    ## Duration: 3.0 s
+    ## Duration: 3.1 s
     ## 
     ## [ FAIL 1 | WARN 0 | SKIP 0 | PASS 6 ]
     ## [1] "Test failures"
@@ -61,7 +61,7 @@ tryCatch(
     ## ℹ Testing demo
 
     ## ✓ |  OK F W S | Context
-    ## ⠏ |   0       | functions                                                       ⠹ |   3       | functions                                                       ⠦ |   6 1     | functions                                                       x |   6 1     | functions [2.2 s]
+    ## ⠏ |   0       | functions                                                       ⠹ |   3       | functions                                                       ⠦ |   6 1     | functions                                                       x |   6 1     | functions [2.4 s]
     ## ────────────────────────────────────────────────────────────────────────────────
     ## Error (test_functions.R:20:3): master_fct2 performs as expected
     ## Error: 5 nodes produced errors; first error: there is no package called ‘demo’
@@ -73,7 +73,7 @@ tryCatch(
     ## ────────────────────────────────────────────────────────────────────────────────
     ## 
     ## ══ Results ═════════════════════════════════════════════════════════════════════
-    ## Duration: 2.2 s
+    ## Duration: 2.5 s
     ## 
     ## [ FAIL 1 | WARN 0 | SKIP 0 | PASS 6 ]
 
@@ -92,10 +92,10 @@ testthat::test_dir("tests/testthat/")
 ```
 
     ## ✓ |  OK F W S | Context
-    ## ⠏ |   0       | functions                                                       ⠹ |   3       | functions                                                       ⠦ |   7       | functions                                                       ✓ |   8       | functions [2.1 s]
+    ## ⠏ |   0       | functions                                                       ⠹ |   3       | functions                                                       ⠦ |   7       | functions                                                       ✓ |   8       | functions [2.0 s]
     ## 
     ## ══ Results ═════════════════════════════════════════════════════════════════════
-    ## Duration: 2.1 s
+    ## Duration: 2.0 s
     ## 
     ## [ FAIL 0 | WARN 0 | SKIP 0 | PASS 8 ]
 

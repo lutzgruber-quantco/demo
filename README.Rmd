@@ -11,7 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 This is package serves to demonstrate that `testthat::test_local()` (and `devtools::test()`) fail for function `master_fct2()` (when the package is not installed but merely loaded with devtools), but the function runs without any problems when called by the user or when tested with `testthat::test_dir()`.
 
-It is noteworthy that the problem appears to come from a call to `dplyr::summarize()` in the worker function. `master_fct1()` calls a different worker function that does not use `dplyr::summarize()`, and the `testthat::test_local()` has no problems with that function.
+It is noteworthy that the problem appears to come from a call to `dplyr::summarize()` in the worker function. `master_fct1()` calls a different worker function that does not use `dplyr::summarize()`, and that `testthat::test_local()` has no problems with that function.
 
 ## Errors
 
